@@ -1,0 +1,46 @@
+<section class="search-area" ng-controller="SearchGameDatabaseCtrl">
+<div class="row">
+  <form class="col l12">
+    <div class="row">
+      <div class="input-field col l4">
+        <select class="browser-default" ngrepeatgoeshere >
+          <option value="NES">NES</option>
+          <option value="SNES">SNES</option>
+          <option value="N64">N64</option>
+          <option value="GC">GameCube</option>
+          <option value="Wii">Wii</option>
+        </select>
+        <label> Label</label>
+      </div>
+      <div class="input-field col l6">
+        <input id="search-game-database" type="text" ng-model="searchForGameName">
+      </div>
+    </div>
+  </form>
+  <button class="waves-effect waves-light btn" ng-click="searchGameDatabase()">Search</button>
+
+</div>
+<div ng-repeat="game in searchForGameNameResults">
+  <div class="col l3">
+    <div class="row">
+      <div class="card small">
+        <div class="card-image waves-effect waves-block waves-light">
+          <img class="activator" ng-src="{{game.image.medium_url}}">
+          <span class="card-title"> {{game.name}}</span>
+        </div>
+        <div class="card-content">
+          <p>{{game.platforms[0].name}}</p>
+          <p>{{game.deck}}</p>
+        </div>
+        <div class=card-action>
+          <a class="btn" ng-click="addGametoUserBacklog(game.id, game.name)">Add to Backlog</a>
+        </div>
+        <div class="card-reveal">
+      <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+      <p>Here is some more information about this product that is only revealed once clicked on.</p>
+    </div>
+      </div>
+    </div> <!--row-->
+  </div><!--column-->
+</div><!--ng-repeat-->
+</section>
