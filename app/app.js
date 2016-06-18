@@ -1,6 +1,7 @@
 "use strict";
 var app = angular.module('BacklogManager', ['ngRoute'])
-  .constant("firebaseURL", "https://dcc-backlogmanager.firebaseio.com/");
+  .constant("firebaseURL", "https://dcc-backlogmanager.firebaseio.com/")
+  .constant("GBAPI", "57fa396fabb7fb0d28c385648e2707007857248f");
 
   let isAuth = (AuthFactory) => new Promise ((resolve, reject) => { 
     if (AuthFactory.isAuthenticated()){
@@ -16,7 +17,7 @@ app.config(function($routeProvider){
   $routeProvider.
   when('/', {
     templateUrl:'partials/profile.html',
-    controller:'Profile',
+    controller:'ProfileCtrl',
     resolve: {isAuth}
   }).
   when('/profile', {
@@ -26,7 +27,15 @@ app.config(function($routeProvider){
   }).
   when('/search', {
     templateUrl: 'partials/search.html',
-    controller: 'SearchGameCtrl'
+    controller: 'SearchGameDatabaseCtrl'
+  }).
+  when('/community', {
+    templateUrl:'partials/community.html',
+    controller: ''
+  }).
+  when('/backlog', {
+    templateUrl:'partials/backlog.html',
+    controller: ''
   }).
   when('/login', {
     templateUrl: 'partials/login.html',
