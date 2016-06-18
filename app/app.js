@@ -24,6 +24,10 @@ app.config(function($routeProvider){
     controller:'ProfileCtrl',
     resolve: {isAuth}
   }).
+  when('/search', {
+    templateUrl: 'partials/search.html',
+    controller: 'SearchGameCtrl'
+  }).
   when('/login', {
     templateUrl: 'partials/login.html',
     controller: 'LoginCtrl'

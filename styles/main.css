@@ -5,3 +5,7 @@ body {
 
 main {
   flex: 1 0 auto; }
+
+.col .l6 {
+  border-style: red dashed 1px;
+  height: 50px; }
