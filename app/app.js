@@ -35,7 +35,8 @@ app.config(function($routeProvider){
   }).
   when('/backlog', {
     templateUrl:'partials/backlog.html',
-    controller: ''
+    controller: 'BacklogCtrl',
+    resolve: {isAuth}
   }).
   when('/login', {
     templateUrl: 'partials/login.html',
@@ -47,3 +48,13 @@ app.config(function($routeProvider){
   }).
   otherwise('/');
 });
+
+app.run(($location) => {
+  let movieRef = new Firebase("https://groovymovie.firebaseio.com/");
+    movieRef.unauth();
+  movieRef.onAuth(authData => {
+    if(!authData){
+      $location.path("/login");
+    }
+  })
+})

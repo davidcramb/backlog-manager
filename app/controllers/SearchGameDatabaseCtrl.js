@@ -1,5 +1,5 @@
 "use strict";
-app.controller('SearchGameDatabaseCtrl', function($scope, $http, gameStorage){
+app.controller('SearchGameDatabaseCtrl', function($scope, $http, gameStorage,AuthFactory){
 
   $scope.searchForGameName = "";
   $scope.searchForGameNameResults = [];
@@ -18,7 +18,18 @@ app.controller('SearchGameDatabaseCtrl', function($scope, $http, gameStorage){
     console.log('Unique ID ->', uniqueGameID);
     gameStorage.searchGBForGame(uniqueGameID)
       .then(function(result){
-        gameStorage.addGBGameResultToFirebase(result)
+        let user = AuthFactory.getUser();
+        let gameObject = {
+          title: result.name,
+          platform: result.platforms[0].name,
+          genre: result.genres[0].name,
+          developers: result.developers[0].name,
+          boxart: result.image.small_url,
+          id: result.id,
+          uid: user.uid,
+          completed: false
+        };
+        gameStorage.addGBGameResultToFirebase(gameObject);
       });//then result
   }; //addGametoUserBacklog
 

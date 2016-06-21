@@ -9,7 +9,7 @@ app.factory("AuthFactory", function(firebaseURL) {
       return (authData) ? true : false;
     },
 
-    getUser () {
+    getUser() {
       return currentUserData;
     },
 
@@ -24,6 +24,7 @@ app.factory("AuthFactory", function(firebaseURL) {
           } else {
             console.log("authWithPassword method completed succesfully");
             currentUserData = authData;
+            console.log(currentUserData)
             resolve(authData);
           }
         });

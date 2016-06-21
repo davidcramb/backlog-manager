@@ -18,16 +18,10 @@ app.factory("gameStorage", function($q, $http, firebaseURL, GBAPI, AuthFactory){
     var items = [];
     console.log('retrieving specific id from GB', uniqueGameID);
     return $q(function(resolve, reject){
-      // $http({
-      //   method: 'JSONP',
-      //   url: `http://www.giantbomb.com/api/game/3030-${uniqueGameID}/?api_key=${GBAPI}&format=jsonp&`+'?callback=JSONP_CALLBACK'
-      // })
-      // $http.jsonp(`http://www.giantbomb.com/api/game/3030-${uniqueGameID}/?api_key=${GBAPI}&format=jsonp&json_callback=callback`)
-      $http.jsonp(`http://www.giantbomb.com/api/game/3030-${uniqueGameID}/?api_key=${GBAPI}&format=jsonp&json_callback=JSON_CALLBACK`)
+       $http.jsonp(`http://www.giantbomb.com/api/game/3030-${uniqueGameID}/?api_key=${GBAPI}&format=jsonp&json_callback=JSON_CALLBACK`)
         .success(function(gameObject){
-          items.push(gameObject);
+          items.push(gameObject.results);
           resolve(items[0]);
-          console.log(items);
         })//success
         .error(function(error){
         reject(error);
@@ -35,13 +29,37 @@ app.factory("gameStorage", function($q, $http, firebaseURL, GBAPI, AuthFactory){
     })//$q
   }
 
-  var addGBGameResultToFirebase = (title) => {
-    console.log(title)
-
+  var addGBGameResultToFirebase = (gameObject) => {
+    return $q(function(resolve, reject){
+      $http.post(
+        `${firebaseURL}games.json`,
+        JSON.stringify({gameObject
+        }) //stringify
+      ).success(
+        function(objectFromFirebase){
+          resolve(objectFromFirebase)
+        })//success
+    })//q
   }
 
+  var populateBacklogPage = () => {
+    return $q(function(resolve, reject){
+      $http.get(`${firebaseURL}games.json`)
+        .success(function(firebaseObject) {
+          let itemCollection = firebaseObject;
+          console.log(itemCollection);
+          resolve(itemCollection);
+        })//success
+    })//$q
+  };
 
 
-return {searchGiantBombDatabase: searchGiantBombDatabase, searchGBForGame:searchGBForGame, addGBGameResultToFirebase:addGBGameResultToFirebase}
+
+return {
+  searchGiantBombDatabase: searchGiantBombDatabase,
+  searchGBForGame:searchGBForGame,
+  addGBGameResultToFirebase:addGBGameResultToFirebase,
+  populateBacklogPage: populateBacklogPage
+}
 
 })//factory
