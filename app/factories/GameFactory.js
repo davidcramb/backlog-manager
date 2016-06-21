@@ -27,7 +27,7 @@ app.factory("gameStorage", function($q, $http, firebaseURL, GBAPI, AuthFactory){
         reject(error);
       });
     })//$q
-  }
+  };
 
   var addGBGameResultToFirebase = (gameObject) => {
     return $q(function(resolve, reject){
@@ -40,7 +40,7 @@ app.factory("gameStorage", function($q, $http, firebaseURL, GBAPI, AuthFactory){
           resolve(objectFromFirebase)
         })//success
     })//q
-  }
+  };
 
   var populateBacklogPage = () => {
     return $q(function(resolve, reject){
@@ -53,13 +53,23 @@ app.factory("gameStorage", function($q, $http, firebaseURL, GBAPI, AuthFactory){
     })//$q
   };
 
+  var deleteGameTitle = (gameID) => {
+    return $q(function(resolve, reject){
+      console.log(`${firebaseURL}${gameID}.json`)
+      $http.delete(`${firebaseURL}games/${gameID}.json`)
+        .success(function(objectFromFirebase){
+          resolve(objectFromFirebase)
+        })//success
+    })//q
+  };
 
 
 return {
   searchGiantBombDatabase: searchGiantBombDatabase,
   searchGBForGame:searchGBForGame,
   addGBGameResultToFirebase:addGBGameResultToFirebase,
-  populateBacklogPage: populateBacklogPage
+  populateBacklogPage: populateBacklogPage,
+  deleteGameTitle: deleteGameTitle
 }
 
 })//factory

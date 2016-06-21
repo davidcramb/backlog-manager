@@ -15,7 +15,7 @@
         <p>{{game.developers}}</p>
         <p>{{game.platform}}</p>
           <div>
-            <a class="btn" ng-click="userCompletedGame(game.id, game.title)">Complete</a><a class="btn">Remove</a>
+            <a class="btn" ng-click="userCompletedGame(game.id, game.title)">Complete</a><a class="btn" ng-click="userRemoveFromBacklogList(game.firebaseID)">Remove</a>
           </div>
       </div>
     </div>
