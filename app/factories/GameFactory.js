@@ -1,8 +1,8 @@
+"use strict";
 app.factory("gameStorage", function($q, $http, firebaseURL, GBAPI, AuthFactory){
 
   var searchGiantBombDatabase = (gameTitle) => {
     var items = [];
-    console.log(GBAPI)
     return $q(function(resolve, reject){
       $http.jsonp(`http://www.giantbomb.com/api/search/?api_key=${GBAPI}&query=${gameTitle}&resources=game&field_list=game&field_list=name,id,deck,platform,image,original_release_date,developers&format=jsonp&json_callback=angular.callbacks._0`)
       
@@ -10,13 +10,12 @@ app.factory("gameStorage", function($q, $http, firebaseURL, GBAPI, AuthFactory){
           var searchResults = gameObject;
           items.push(searchResults);
           resolve(items[0]);
-        })//success
-    })//$q
+        });//success
+    });//$q
   };
 
   var searchGBForGame = (uniqueGameID) => {
     var items = [];
-    console.log('retrieving specific id from GB', uniqueGameID);
     return $q(function(resolve, reject){
        $http.jsonp(`http://www.giantbomb.com/api/game/3030-${uniqueGameID}/?api_key=${GBAPI}&format=jsonp&json_callback=JSON_CALLBACK`)
         .success(function(gameObject){
@@ -37,9 +36,9 @@ app.factory("gameStorage", function($q, $http, firebaseURL, GBAPI, AuthFactory){
         }) //stringify
       ).success(
         function(objectFromFirebase){
-          resolve(objectFromFirebase)
-        })//success
-    })//q
+          resolve(objectFromFirebase);
+        });//success
+    });//q
   };
 
   var populateBacklogPage = () => {
@@ -55,24 +54,26 @@ app.factory("gameStorage", function($q, $http, firebaseURL, GBAPI, AuthFactory){
 
   var deleteGameTitle = (gameID) => {
     return $q(function(resolve, reject){
-      console.log(`${firebaseURL}${gameID}.json`)
       $http.delete(`${firebaseURL}games/${gameID}.json`)
         .success(function(objectFromFirebase){
-          resolve(objectFromFirebase)
-        })//success
-    })//q
+          resolve(objectFromFirebase);
+        });//success
+    });//q
   };
 
   var updateGameAsCompleted = (firebaseID, gameObject) => {
-    console.log(gameObject)
-    console.log(firebaseID)
     return $q(function(resolve, reject){
       $http.put(
         `${firebaseURL}games/${firebaseID}.json`,
         JSON.stringify({gameObject})
-        );
-    })
+        )
+      .success(function(firebaseObject){
+        resolve(firebaseObject);
+      });//success
+    });//q
   }
+
+
 
 return {
   searchGiantBombDatabase: searchGiantBombDatabase,

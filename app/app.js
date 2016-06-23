@@ -38,6 +38,11 @@ app.config(function($routeProvider){
     controller: 'BacklogCtrl',
     resolve: {isAuth}
   }).
+  when('/completed', {
+    templateUrl: 'partials/completed.html',
+    controller: 'BacklogCtrl',
+    resolve: {isAuth}
+  }).
   when('/login', {
     templateUrl: 'partials/login.html',
     controller: 'LoginCtrl'

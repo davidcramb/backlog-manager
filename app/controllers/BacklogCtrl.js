@@ -3,6 +3,7 @@ app.controller('BacklogCtrl', function($scope, $http, AuthFactory, gameStorage){
 
   $scope.backlogList = [];
   $scope.identifier = [];
+  $scope.completedGames = [];
 
 
   $scope.populatePage = () => {
@@ -11,12 +12,15 @@ app.controller('BacklogCtrl', function($scope, $http, AuthFactory, gameStorage){
     gameStorage.populateBacklogPage()
       .then(function(gamesList){
         Object.keys(gamesList).forEach(function(key){
-          // console.log(gamesList[key].gameObject)
-          if (gamesList[key].gameObject.uid === user.uid){
+
+          if (gamesList[key].gameObject.uid === user.uid && gamesList[key].gameObject.completed === false){
             gamesList[key].gameObject.firebaseID = key;
             $scope.backlogList.push(gamesList[key].gameObject);
-          }//if
-        })//forEach       
+          } else if (gamesList[key].gameObject.uid === user.uid && gamesList[key].gameObject.completed === true) {
+            gamesList[key].gameObject.firebaseID = key;
+            $scope.completedGames.push(gamesList[key].gameObject);
+          };//if
+        });//forEach       
         console.log($scope.backlogList)
       })//then
   };
@@ -33,14 +37,6 @@ app.controller('BacklogCtrl', function($scope, $http, AuthFactory, gameStorage){
       })//then
   };
 
-  // $scope.userCompletedGame = (gameID, gameTitle) => {
-  //   let user = AuthFactory.getUser();
-  //   console.log('Completed ->,' gameTitle)
-  //     gameStorage.updateGameAsCompleted(gameID)
-  //       .then(function(game){
-  //         //function to move out of backlog library to Completed Backlog List
-  //       })
-  // }
   $scope.userCompletedGame = (firebaseID, gameTitle, game) => {
     let user = AuthFactory.getUser();
     console.log('Updating game as complete', gameTitle);
@@ -59,9 +55,20 @@ app.controller('BacklogCtrl', function($scope, $http, AuthFactory, gameStorage){
         };
     gameStorage.updateGameAsCompleted(firebaseID, gameObject)
       .then(function(result){
-        console.log(result)
-      })//then
-      
+        $scope.moveGametoCompletedList(game);
+        console.log('moving game object', game)
+        $scope.backlogList = [];
+        $scope.populatePage();
+      });//then
   };
+
+  $scope.moveGametoCompletedList = (gameObject) => {
+    $scope.completedGames.push(gameObject);
+  };
+
+  $scope.populateCompletedGamesList = () =>{
+    let user = AuthFactory.getUser();
+
+  };//end
 
 });
