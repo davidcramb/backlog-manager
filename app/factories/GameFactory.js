@@ -63,13 +63,24 @@ app.factory("gameStorage", function($q, $http, firebaseURL, GBAPI, AuthFactory){
     })//q
   };
 
+  var updateGameAsCompleted = (firebaseID, gameObject) => {
+    console.log(gameObject)
+    console.log(firebaseID)
+    return $q(function(resolve, reject){
+      $http.put(
+        `${firebaseURL}games/${firebaseID}.json`,
+        JSON.stringify({gameObject})
+        );
+    })
+  }
 
 return {
   searchGiantBombDatabase: searchGiantBombDatabase,
   searchGBForGame:searchGBForGame,
   addGBGameResultToFirebase:addGBGameResultToFirebase,
   populateBacklogPage: populateBacklogPage,
-  deleteGameTitle: deleteGameTitle
+  deleteGameTitle: deleteGameTitle,
+  updateGameAsCompleted: updateGameAsCompleted
 }
 
 })//factory

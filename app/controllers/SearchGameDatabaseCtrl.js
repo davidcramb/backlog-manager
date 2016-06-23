@@ -27,7 +27,8 @@ app.controller('SearchGameDatabaseCtrl', function($scope, $http, gameStorage,Aut
           boxart: result.image.small_url,
           id: result.id,
           uid: user.uid,
-          completed: false
+          completed: false,
+          date_added: new Date()
         };
         gameStorage.addGBGameResultToFirebase(gameObject);
       });//then result
