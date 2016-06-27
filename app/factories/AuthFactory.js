@@ -1,5 +1,5 @@
 "use strict";
-app.factory("AuthFactory", function(firebaseURL) {
+app.factory("AuthFactory", function($http, firebaseURL) {
   let ref = new Firebase(firebaseURL);
   let currentUserData = null;
 
@@ -9,7 +9,7 @@ app.factory("AuthFactory", function(firebaseURL) {
       return (authData) ? true : false;
     },
 
-    getUser () {
+    getUser() {
       return currentUserData;
     },
 
@@ -24,6 +24,8 @@ app.factory("AuthFactory", function(firebaseURL) {
           } else {
             console.log("authWithPassword method completed succesfully");
             currentUserData = authData;
+            console.log(currentUserData)
+    
             resolve(authData);
           }
         });
@@ -31,10 +33,11 @@ app.factory("AuthFactory", function(firebaseURL) {
       },
 
       storeUser(authData) {
+        console.log(authData)
         let stringifiedUser = JSON.stringify({ uid: authData.id });
         return new Promise((resolve, reject) => {
           $http
-            .post(`${firebaseURL}/users.json`, stringifiedUser)
+            .post(`${firebaseURL}/users.json`, authData)
             .then(
               res => resolve(res),
               err => reject(err)
