@@ -88,7 +88,7 @@ app.controller('BacklogCtrl', function($scope, $http, AuthFactory, gameStorage){
       case 6:
       return 2;
           break;
-      case 7:
+      case (timeToCompletion >= 7):
       return 1;
           break;
     };

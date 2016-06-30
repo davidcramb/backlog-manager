@@ -19,7 +19,15 @@ main {
   #sidebar #sidenav {
     min-height: 100em; }
     #sidebar #sidenav li {
+      padding-top: 5%;
+      padding-left: 5%;
       line-height: 3em; }
+      #sidebar #sidenav li a {
+        color: black;
+        padding-left: 3%;
+        font-size: 1.5em; }
+      #sidebar #sidenav li i {
+        margin-right: .25em; }
 
 .sidenav-item :hover {
   color: white; }
