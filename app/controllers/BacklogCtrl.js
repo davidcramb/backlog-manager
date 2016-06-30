@@ -53,9 +53,10 @@ app.controller('BacklogCtrl', function($scope, $http, AuthFactory, gameStorage){
           date_added: game.date_added,
           date_completed: new Date(),
           firebaseID: game.firebaseID,
-        };
-      $scope.calculatePoints(game.date_added, game.date_completed);
 
+
+        };
+    gameObject.completion_value = $scope.calculatePoints(game.date_added, new Date());
     gameStorage.updateGameAsCompleted(firebaseID, gameObject)
       .then(function(result){
         $scope.moveGametoCompletedList(game);
@@ -63,17 +64,35 @@ app.controller('BacklogCtrl', function($scope, $http, AuthFactory, gameStorage){
         $scope.backlogList = [];
 
         $scope.populatePage();
-      });//then
+    });//then
   };
 
   $scope.moveGametoCompletedList = (gameObject) => {
     $scope.completedGames.push(gameObject);
   };
 
+//point system is based on number of days that it took to complete a game//
+
   $scope.calculatePoints = (date_added_to_backlog, date_completed) => {
-    console.log(date_added_to_backlog);
-    console.log(date_completed);
-  }
+    var timeToCompletion = Math.floor((Date.parse(date_completed) - Date.parse(date_added_to_backlog))/1000/60/60/24);
+    switch (timeToCompletion) {
+      case 0 || 1:
+      return 5;
+          break;
+      case 2 || 3:
+      return 4;
+          break;
+      case 4 || 5:
+      return 3;
+          break;
+      case 6:
+      return 2;
+          break;
+      case 7:
+      return 1;
+          break;
+    };
+  };
 
   $scope.populateCompletedGamesList = () =>{
     let user = AuthFactory.getUser();
