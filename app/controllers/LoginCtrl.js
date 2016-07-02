@@ -26,7 +26,6 @@ $scope.register = () => {
         } else{
             console.log(`Created user account with uid: ${userData.uid}`)
             AuthFactory.storeUser(userData);
-
             $scope.login();
         }
     });

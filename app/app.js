@@ -61,6 +61,6 @@ app.run(($location) => {
   movieRef.onAuth(authData => {
     if(!authData){
       $location.path("/login");
-    }
+    };  
   })
 })
