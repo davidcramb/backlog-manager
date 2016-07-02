@@ -1,5 +1,6 @@
 "use strict";
-var app = angular.module('BacklogManager', ['ngRoute'])
+
+var app = angular.module('BacklogManager', ['ngRoute', 'ngMd5'])
   .constant("firebaseURL", "https://dcc-backlogmanager.firebaseio.com/")
   .constant("GBAPI", "57fa396fabb7fb0d28c385648e2707007857248f");
 
