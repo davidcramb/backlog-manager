@@ -23,11 +23,11 @@ main {
       padding-left: 5%;
       line-height: 3em; }
       #sidebar #sidenav li a {
-        color: black;
+        text-decoration: none;
         padding-left: 3%;
         font-size: 1.5em; }
       #sidebar #sidenav li i {
         margin-right: .25em; }
 
-.sidenav-item :hover {
+.sidenav-item:hover i, .sidenav-item:hover a {
   color: white; }
