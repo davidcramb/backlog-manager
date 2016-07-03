@@ -13,6 +13,10 @@ app.factory("AuthFactory", function($http, firebaseURL) {
       return currentUserData;
     },
 
+    getEmail() {
+      return currentUserData.password.email;
+    },
+
     authenticate(credentials) {
       return new Promise((resolve, reject) => {
         ref.authWithPassword({

@@ -25,9 +25,15 @@ main {
       #sidebar #sidenav li a {
         text-decoration: none;
         padding-left: 3%;
-        font-size: 1.5em; }
+        font-size: 1.25em; }
       #sidebar #sidenav li i {
         margin-right: .25em; }
 
 .sidenav-item:hover i, .sidenav-item:hover a {
-  color: white; }
+  vertical-align: middle;
+  color: white;
+  font-size: 1.5em;
+  line-height: 1.5em; }
+
+#profileCotainer {
+  margin: 0 auto; }

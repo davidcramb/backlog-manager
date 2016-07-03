@@ -11,7 +11,7 @@ var app = angular.module('BacklogManager', ['ngRoute', 'ngMd5'])
     } else {
       console.log('Authentication Failed, rejecting promise');
       reject();
-    }
+    };
   });
 
 app.config(function($routeProvider){
@@ -56,11 +56,11 @@ app.config(function($routeProvider){
 });
 
 app.run(($location) => {
-  let movieRef = new Firebase("https://groovymovie.firebaseio.com/");
-    movieRef.unauth();
-  movieRef.onAuth(authData => {
-    if(!authData){
+  let gameRef = new Firebase("https://dcc-backlogmanager.firebaseio.com/");
+    gameRef.unauth();
+  gameRef.onAuth(authData => {
+    if (!authData){
       $location.path("/login");
     };  
-  })
-})
+  });
+});

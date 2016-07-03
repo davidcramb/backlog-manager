@@ -10,7 +10,7 @@ app.controller("LoginCtrl", function($scope, $rootScope, $location, firebaseURL,
     password: ""
   };
   
-  if($location.path() === "/logout") {
+  if ($location.path() === "/logout") {
     ref.unauth();
     $rootScope.isActive = false;
   }
@@ -21,13 +21,13 @@ $scope.register = () => {
         email: $scope.account.email,
         password: $scope.account.password
     }, (error, userData) => {
-        if(error){
+        if (error){
             console.log(`Error creating user: ${error}`);
-        } else{
+        } else {
             console.log(`Created user account with uid: ${userData.uid}`)
             AuthFactory.storeUser(userData);
             $scope.login();
-        }
+        };
     });
 };
 
@@ -39,8 +39,7 @@ $scope.register = () => {
         $scope.hasUser= true;
         $location.path("/");
         $scope.$apply();
-
-      })
-  }
+      });
+  };
 
 });
