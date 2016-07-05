@@ -74,7 +74,18 @@ app.factory("gameStorage", function($q, $http, firebaseURL, GBAPI, AuthFactory){
         resolve(firebaseObject);
       });//success
     });//q
-  }
+  };
+
+  var getPlayerTotalPoints = () => {
+    return $q(function(resolve, reject){
+      $http.get(
+        `${firebaseURL}games.json`)
+        .success(function(firebaseObject){
+          let pointGenerator = firebaseObject;
+          resolve(pointGenerator);
+        });
+    });
+  };
 
 
 
@@ -84,7 +95,8 @@ return {
   addGBGameResultToFirebase:addGBGameResultToFirebase,
   populateBacklogPage: populateBacklogPage,
   deleteGameTitle: deleteGameTitle,
-  updateGameAsCompleted: updateGameAsCompleted
+  updateGameAsCompleted: updateGameAsCompleted,
+  getPlayerTotalPoints: getPlayerTotalPoints
 }
 
 })//factory

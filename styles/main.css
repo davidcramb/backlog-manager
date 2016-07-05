@@ -35,5 +35,11 @@ main {
   font-size: 1.5em;
   line-height: 1.5em; }
 
-#profileCotainer {
-  margin: 0 auto; }
+#profileContainer {
+  margin: 10% auto; }
+
+#profileImage img {
+  margin: 0 30%;
+  border-radius: 50%;
+  box-shadow: 1px -6px 47px -4px;
+  justify-content: center; }

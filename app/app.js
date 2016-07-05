@@ -58,7 +58,7 @@ app.config(function($routeProvider){
 app.run(($location) => {
   let gameRef = new Firebase("https://dcc-backlogmanager.firebaseio.com/");
     gameRef.unauth();
-  gameRef.onAuth(authData => {
+    gameRef.onAuth(authData => {
     if (!authData){
       $location.path("/login");
     };  
