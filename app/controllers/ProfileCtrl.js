@@ -3,6 +3,7 @@ app.controller("ProfileCtrl", function($scope, $http, gameStorage, AuthFactory, 
   $scope.email = AuthFactory.getEmail();
   $scope.gravatarHash = md5.createHash($scope.email);
   $scope.userPoints = 0;
+  $scope.completedGames = 0;
 
   $scope.getPoints = () => {
     let user = AuthFactory.getUser();
@@ -11,10 +12,12 @@ app.controller("ProfileCtrl", function($scope, $http, gameStorage, AuthFactory, 
         Object.keys(gamesWithPointValues).forEach(function(key){
           if (gamesWithPointValues[key].gameObject.uid === user.uid && gamesWithPointValues[key].gameObject.completed === true){
             $scope.userPoints += gamesWithPointValues[key].gameObject.completion_value;
-          }
-        })
-      })
-  } 
+            $scope.completedGames += 1;
+        };
+      });
+    });
+  };
+
   $scope.getPoints();
 
   $scope.$watch('email', function() {

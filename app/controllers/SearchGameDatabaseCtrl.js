@@ -3,6 +3,16 @@ app.controller('SearchGameDatabaseCtrl', function($scope, $http, gameStorage,Aut
 
   $scope.searchForGameName = "";
   $scope.searchForGameNameResults = [];
+  
+  $scope.gameCardSelected = (title, button, card) => {
+    console.log(button)
+    console.log(card)
+    var buttonToDisable = button[0];
+    var cardToStyle = card[1];
+    Materialize.toast(`${title} added to backlog`, 2500)
+    cardToStyle.setAttribute("id", "game-search-card-selected");
+    buttonToDisable.setAttribute("class", "disabled");
+  };
 
   $scope.searchGameDatabase = () => {
     console.log('searching for Game:', $scope.searchForGameName)
@@ -13,7 +23,7 @@ app.controller('SearchGameDatabaseCtrl', function($scope, $http, gameStorage,Aut
       });
   }; //searchGameDatabase
 
-  $scope.addGametoUserBacklog = (uniqueGameID, title) => {
+  $scope.addGametoUserBacklog = (uniqueGameID, title, $event) => {
     console.log('adding title to backlog ->', title);
     console.log('Unique ID ->', uniqueGameID);
     gameStorage.searchGBForGame(uniqueGameID)
@@ -30,6 +40,9 @@ app.controller('SearchGameDatabaseCtrl', function($scope, $http, gameStorage,Aut
           completed: false,
           date_added: new Date()
         };
+
+        $scope.gameCardSelected(gameObject.title, angular.element($event.currentTarget),angular.element($event.currentTarget).parents())
+
         gameStorage.addGBGameResultToFirebase(gameObject);
       });//then result
   }; //addGametoUserBacklog

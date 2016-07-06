@@ -28,7 +28,8 @@ app.config(function($routeProvider){
   }).
   when('/search', {
     templateUrl: 'partials/search.html',
-    controller: 'SearchGameDatabaseCtrl'
+    controller: 'SearchGameDatabaseCtrl',
+    resolve: {isAuth}
   }).
   when('/community', {
     templateUrl:'partials/community.html',
