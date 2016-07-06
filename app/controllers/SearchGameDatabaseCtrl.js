@@ -5,8 +5,6 @@ app.controller('SearchGameDatabaseCtrl', function($scope, $http, gameStorage,Aut
   $scope.searchForGameNameResults = [];
   
   $scope.gameCardSelected = (title, button, card) => {
-    console.log(button)
-    console.log(card)
     var buttonToDisable = button[0];
     var cardToStyle = card[1];
     Materialize.toast(`${title} added to backlog`, 2500)
