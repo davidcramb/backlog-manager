@@ -17,6 +17,7 @@ app.controller('SearchGameDatabaseCtrl', function($document, $scope, $http, game
   //takes results that already exist in backlog, styles the card and disables the button
   $scope.filterResultsInBacklog = (title) => {
     let user = AuthFactory.getUser();
+    let removedTitles = 0;
     gameStorage.populateBacklogPage()
       .then(function(gamesList){
         Object.keys(gamesList).forEach(function(key){
@@ -24,10 +25,12 @@ app.controller('SearchGameDatabaseCtrl', function($document, $scope, $http, game
           Object.keys($scope.searchForGameNameResults).forEach(function(key2){
             if ($scope.searchForGameNameResults[key2].id === gamesList[key].gameObject.id){
               $scope.disableCardInBacklog($scope.searchForGameNameResults[key2].id);
+              removedTitles ++;
             };
           });
         };
       });
+        Materialize.toast(`${removedTitles} title(s) currently in backlog`, 2000);
     });
   };
 
@@ -44,7 +47,7 @@ app.controller('SearchGameDatabaseCtrl', function($document, $scope, $http, game
   $scope.gameCardSelected = (title, button, card) => {
     var buttonToDisable = button[0];
     var cardToStyle = card[1];
-    Materialize.toast(`${title} added to backlog`, 2500)
+    Materialize.toast(`${title} added to backlog`, 2500);
     cardToStyle.setAttribute("id", "game-search-card-selected");
     buttonToDisable.setAttribute("class", "disabled");
   };

@@ -4,7 +4,7 @@
 <div class="row">
   <form class="col l12">
     <div class="row">
-      <div class="input-field col l4">
+      <!-- <div class="input-field col l4">
         <select class="browser-default" ngrepeatgoeshere >
           <option value="NES">NES</option>
           <option value="SNES">SNES</option>
@@ -13,7 +13,7 @@
           <option value="Wii">Wii</option>
         </select>
         <label> Label</label>
-      </div>
+      </div> -->
       <div class="input-field col l6">
         <input id="search-game-database" type="text" ng-model="searchForGameName" ng-keypress="($event.which===13)?searchGameDatabase():0">
       </div>
@@ -39,8 +39,9 @@
           <a class="btn" ng-click="addGametoUserBacklog(game.id, game.name, $event)">Add to Backlog</a>
         </div>
         <div class="card-reveal">
-      <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-      <p>Here is some more information about this product that is only revealed once clicked on.</p>
+      <span class="card-title grey-text text-darken-4">{{game.name}}<i class="material-icons right">close</i></span>
+      <p>{{game.deck}}</p>
+      <p>{{game.platforms[0].name}}</p>
     </div>
       </div>
     </div> <!--row-->
