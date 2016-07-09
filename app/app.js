@@ -1,5 +1,6 @@
 "use strict";
-var app = angular.module('BacklogManager', ['ngRoute'])
+
+var app = angular.module('BacklogManager', ['ngRoute', 'ngMd5'])
   .constant("firebaseURL", "https://dcc-backlogmanager.firebaseio.com/")
   .constant("GBAPI", "57fa396fabb7fb0d28c385648e2707007857248f");
 
@@ -10,7 +11,7 @@ var app = angular.module('BacklogManager', ['ngRoute'])
     } else {
       console.log('Authentication Failed, rejecting promise');
       reject();
-    }
+    };
   });
 
 app.config(function($routeProvider){
@@ -27,7 +28,8 @@ app.config(function($routeProvider){
   }).
   when('/search', {
     templateUrl: 'partials/search.html',
-    controller: 'SearchGameDatabaseCtrl'
+    controller: 'SearchGameDatabaseCtrl',
+    resolve: {isAuth}
   }).
   when('/community', {
     templateUrl:'partials/community.html',
@@ -55,11 +57,11 @@ app.config(function($routeProvider){
 });
 
 app.run(($location) => {
-  let movieRef = new Firebase("https://groovymovie.firebaseio.com/");
-    movieRef.unauth();
-  movieRef.onAuth(authData => {
-    if(!authData){
+  let gameRef = new Firebase("https://dcc-backlogmanager.firebaseio.com/");
+    gameRef.unauth();
+    gameRef.onAuth(authData => {
+    if (!authData){
       $location.path("/login");
-    }
-  })
-})
+    };  
+  });
+});

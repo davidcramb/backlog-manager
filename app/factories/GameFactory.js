@@ -4,8 +4,8 @@ app.factory("gameStorage", function($q, $http, firebaseURL, GBAPI, AuthFactory){
   var searchGiantBombDatabase = (gameTitle) => {
     var items = [];
     return $q(function(resolve, reject){
-      $http.jsonp(`http://www.giantbomb.com/api/search/?api_key=${GBAPI}&query=${gameTitle}&resources=game&field_list=game&field_list=name,id,deck,platform,image,original_release_date,developers&format=jsonp&json_callback=angular.callbacks._0`)
-      
+      // $http.jsonp(`http://www.giantbomb.com/api/search/?api_key=${GBAPI}&query=${gameTitle}&resources=game&field_list=game&field_list=name,id,deck,platform,image,original_release_date,developers&format=jsonp&json_callback=angular.callbacks._0`)
+      $http.jsonp(`http://www.giantbomb.com/api/search/?api_key=${GBAPI}&query=${gameTitle}&resources=game&field_list=game&field_list=name,id,deck,platform,image,original_release_date,developers&format=jsonp&json_callback=JSON_CALLBACK`)
         .success(function(gameObject){
           var searchResults = gameObject;
           items.push(searchResults);
@@ -41,12 +41,12 @@ app.factory("gameStorage", function($q, $http, firebaseURL, GBAPI, AuthFactory){
     });//q
   };
 
+//may also function as a getter
   var populateBacklogPage = () => {
     return $q(function(resolve, reject){
       $http.get(`${firebaseURL}games.json`)
         .success(function(firebaseObject) {
           let itemCollection = firebaseObject;
-          console.log(itemCollection);
           resolve(itemCollection);
         })//success
     })//$q
@@ -71,7 +71,18 @@ app.factory("gameStorage", function($q, $http, firebaseURL, GBAPI, AuthFactory){
         resolve(firebaseObject);
       });//success
     });//q
-  }
+  };
+
+  var getPlayerTotalPoints = () => {
+    return $q(function(resolve, reject){
+      $http.get(
+        `${firebaseURL}games.json`)
+        .success(function(firebaseObject){
+          let pointGenerator = firebaseObject;
+          resolve(pointGenerator);
+        });
+    });
+  };
 
 
 
@@ -81,7 +92,8 @@ return {
   addGBGameResultToFirebase:addGBGameResultToFirebase,
   populateBacklogPage: populateBacklogPage,
   deleteGameTitle: deleteGameTitle,
-  updateGameAsCompleted: updateGameAsCompleted
+  updateGameAsCompleted: updateGameAsCompleted,
+  getPlayerTotalPoints: getPlayerTotalPoints
 }
 
 })//factory

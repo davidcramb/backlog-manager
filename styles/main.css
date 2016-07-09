@@ -19,7 +19,42 @@ main {
   #sidebar #sidenav {
     min-height: 100em; }
     #sidebar #sidenav li {
+      padding-top: 5%;
+      padding-left: 5%;
       line-height: 3em; }
+      #sidebar #sidenav li a {
+        text-decoration: none;
+        color: orange;
+        padding-left: 3%;
+        font-size: 1.25em; }
+      #sidebar #sidenav li i {
+        margin-right: .25em; }
 
-.sidenav-item :hover {
-  color: white; }
+.sidenav-item:hover i, .sidenav-item:hover a {
+  vertical-align: middle;
+  color: white !important;
+  font-size: 1.5em;
+  line-height: 1.5em; }
+
+#game-search-card-selected {
+  background-color: yellow; }
+
+#disclaimer {
+  margin-top: 5%;
+  font-style: italic;
+  font-size: .85em; }
+
+#profileContainer {
+  margin: 10% auto; }
+
+.gameSearchCard .card:hover {
+  transform: scale(1.2); }
+
+#profileImage img {
+  margin: 0 30%;
+  border-radius: 50%;
+  box-shadow: 1px -6px 47px -4px;
+  justify-content: center; }
+
+.page-footer {
+  margin-top: -3% !important; }
