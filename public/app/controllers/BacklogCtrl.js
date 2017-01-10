@@ -20,7 +20,7 @@ app.controller('BacklogCtrl', function($scope, $http, AuthFactory, gameStorage){
           } else if (gamesList[key].gameObject.uid === user.uid && gamesList[key].gameObject.completed === true) {
             gamesList[key].gameObject.firebaseID = key;
             $scope.completedGames.push(gamesList[key].gameObject);
-          };//if
+          } ;//if
         });//forEach       
         console.log($scope.backlogList)
       })//then
