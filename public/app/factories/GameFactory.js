@@ -1,4 +1,4 @@
-"use strict";
+  "use strict";
 app.factory("gameStorage", function($q, $http, firebaseURL, GBAPI, AuthFactory){
 
   var searchGiantBombDatabase = (gameTitle) => {
@@ -73,7 +73,7 @@ app.factory("gameStorage", function($q, $http, firebaseURL, GBAPI, AuthFactory){
     });//q
   };
 
-  var getPlayerTotalPoints = () => {
+  var getPlayerTotalPoints = () => {  
     return $q(function(resolve, reject){
       $http.get(
         `${firebaseURL}games.json`)
